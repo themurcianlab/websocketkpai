@@ -138,7 +138,7 @@ async def main():
    # Servidor WebSocket
    async with serve(
        handle_conversations,
-       host="",
+       host="0.0.0.0",
        port=8080,
        process_request=health_check,
    ):
