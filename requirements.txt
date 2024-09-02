@@ -12,3 +12,4 @@ Flask-Cors==4.0.1
 Flask-SocketIO == 5.3.6
 eventlet == 0.36.1
 gevent == 24.2.1
+websockets == 13.0.1
