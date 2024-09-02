@@ -108,9 +108,13 @@ def handle_request_data(botdata):
         
         # Group by conversation and integration
         data = conversations.group_messages_by_conversation(grouped_data_integration)
+
+        print(f"Voy a emitir {data}")
         
         # Emit the data back to the client
         socketio.emit('conversation_data', data)
+
+        print(f"Emitido: {data}")
 
     except Exception as e:
         emit('error', {'message': str(e)})
