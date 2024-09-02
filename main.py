@@ -2,7 +2,7 @@ from flask import Flask
 from flask_socketio import SocketIO, emit
 import requests
 import json
-
+import os
 import asyncio
 import http
 import signal
@@ -139,7 +139,7 @@ async def main():
    async with serve(
        handle_conversations,
        host="0.0.0.0",
-       port=8080,
+       port=int(os.environ.get("PORT", 8080)),
        process_request=health_check,
    ):
        await stop
