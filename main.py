@@ -136,8 +136,8 @@ class Conversations:
       print("client has connected")
       emit("connect",{"data":f"id: {request.sid} is connected"})
       
-      @socketio.on("disconnect")
-      def disconnected():
+   @socketio.on("disconnect")
+   def disconnected():
       """event listener when client disconnects to the server"""
       print("user disconnected")
       emit("disconnect",f"user {request.sid} disconnected",broadcast=True)
