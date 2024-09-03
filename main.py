@@ -108,40 +108,40 @@ class Conversations:
    @socketio.on('data')
    def handle_conversations(data):
    
-   try:
-     # Deserializar el mensaje JSON recibido
-     botdata = json.loads(data)
-   
-     # Obtener integraciones
-     integrations = conversations.get_bot_integrations(botdata)
-     
-     # Agrupar datos por integración
-     grouped_data_integration = conversations.group_messages_by_integration(botdata, integrations)
-     
-     # Agrupar por conversación e integración
-     data = conversations.group_messages_by_conversation(grouped_data_integration)
-     
-     # Serializar y enviar datos de vuelta al cliente
-     emit(json.dumps({"event": "conversation_data", "data": data}), broadcast=True)
-   
-   except Exception as e:
-     # Enviar mensaje de error en caso de excepción
-     emit(json.dumps({"event": "error", "message": str(e)}), broadcast=True)
+      try:
+        # Deserializar el mensaje JSON recibido
+        botdata = json.loads(data)
+      
+        # Obtener integraciones
+        integrations = conversations.get_bot_integrations(botdata)
+        
+        # Agrupar datos por integración
+        grouped_data_integration = conversations.group_messages_by_integration(botdata, integrations)
+        
+        # Agrupar por conversación e integración
+        data = conversations.group_messages_by_conversation(grouped_data_integration)
+        
+        # Serializar y enviar datos de vuelta al cliente
+        emit(json.dumps({"event": "conversation_data", "data": data}), broadcast=True)
+      
+      except Exception as e:
+        # Enviar mensaje de error en caso de excepción
+        emit(json.dumps({"event": "error", "message": str(e)}), broadcast=True)
    
    
    @socketio.on("connect")
    def connected():
-   """event listener when client connects to the server"""
-   print(request.sid)
-   print("client has connected")
-   emit("connect",{"data":f"id: {request.sid} is connected"})
-   
-   @socketio.on("disconnect")
-   def disconnected():
-   """event listener when client disconnects to the server"""
-   print("user disconnected")
-   emit("disconnect",f"user {request.sid} disconnected",broadcast=True)
+      """event listener when client connects to the server"""
+      print(request.sid)
+      print("client has connected")
+      emit("connect",{"data":f"id: {request.sid} is connected"})
+      
+      @socketio.on("disconnect")
+      def disconnected():
+      """event listener when client disconnects to the server"""
+      print("user disconnected")
+      emit("disconnect",f"user {request.sid} disconnected",broadcast=True)
    
    if __name__ == "__main__":
-   socketio.run(app, debug=True,port=5000)
+      socketio.run(app, debug=True,port=5000)
 
